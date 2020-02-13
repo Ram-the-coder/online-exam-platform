@@ -38,7 +38,7 @@ function containerLogs(container) {
     destroyTimer = setTimeout(function() {
       console.log("TLE");
       container.stop().then(data => container.remove()).then(data => {console.log("Container removed"); stream.destroy();}).catch(err => console.log(err));
-    }, 100);
+    }, 5000);
   });
 }
 
