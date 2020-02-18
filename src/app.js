@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
 /* Set routes */
-app.use('/', routes);
+app.use('/api', routes);
 
 /* Listen on port */
 const server = app.listen(process.env.PORT, () => console.log("Server listening on port " + process.env.PORT));

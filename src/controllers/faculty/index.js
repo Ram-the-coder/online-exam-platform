@@ -1,11 +1,12 @@
-const facultyServices = require('../../services/facultyServices');
+const getDashboard = require('./getDashboard');
+const auth = require('./auth');
+const createTest = require('./createTest');
+const deleteTest = require('./deleteTest');
+const editTest = require('./editTest');
+const deploy = require('./deploy');
+const evaluateAnswer = require('./evaluateAnswer');
+const getTest = require('./getTest');
 
-async function login(req, res, next) {
 
-}
 
-async function signup(req, res, next) {
-		
-}
-
-module.exports = {login, signup};
+module.exports = {getDashboard, auth, createTest, deleteTest, editTest, deploy, evaluateAnswer, getTest};
