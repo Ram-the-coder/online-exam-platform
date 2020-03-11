@@ -15,9 +15,7 @@ const schema = mongoose.Schema({
 	name: {
 		type: String,
 	},
-	tests: {
-		type: Test
-	}
+	tests: [Test]
 })
 
 module.exports = mongoose.model('faculty', schema);
