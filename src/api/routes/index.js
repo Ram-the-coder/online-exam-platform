@@ -3,7 +3,7 @@ const router = express.Router();
 
 const facultyController = require('../../controllers/faculty');
 const studentController = require('../../controllers/student');	
-const rce = require('../../controllers/remoteCodeExecution');
+// const rce = require('../../controllers/remoteCodeExecution');
 
 
 // Faculty Routes
@@ -22,7 +22,7 @@ const rce = require('../../controllers/remoteCodeExecution');
 	router.post('/faculty/evaluateAnswer', facultyController.evaluateAnswer); // Evaluate an answer sheet
 
 // RCE Routes
-router.post('/rce/execute', rce.executeCode);
+// router.post('/rce/execute', rce.executeCode);
 
 // Student routes
 router.get('/testzone/test', studentController.getTest); // Get the test if its is deployed

@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const testSchema = mongoose.Schema({
+const testSchema = new mongoose.Schema({
 	facultyId: {
-		type: mongoose.Schema.Types.ObjectId(),
+		type: mongoose.ObjectId,
 		required: true,
 	},
 	testName: {
@@ -28,7 +28,7 @@ const testSchema = mongoose.Schema({
 		required: true
 	},
 	submittedAnswers: {
-		type: [mongoose.Schema.Types.ObjectId()],
+		type: [mongoose.ObjectId],
 	},
 })
 

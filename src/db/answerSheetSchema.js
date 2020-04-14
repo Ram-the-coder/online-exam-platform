@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const answerSchema = mongoose.Schema({
+const answerSchema = new mongoose.Schema({
 	questionSno: {
 		type: Number,
 		required: true
@@ -13,7 +13,7 @@ const answerSchema = mongoose.Schema({
 	}
 })
 
-const answerSheetSchema = mongoose.Schema({
+const answerSheetSchema = new mongoose.Schema({
 	testId: {
 		type: mongoose.Schema.Types.ObjectId(),
 		required: true
