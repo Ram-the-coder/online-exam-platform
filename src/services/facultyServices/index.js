@@ -1,33 +1,39 @@
-const db = require('../../db');
+const Container = require('typedi').Container;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-async function login(email, password) {
-	const fac = await db.getFaculty(email);
-	if(!fac)
-		return { err: "email doesn't exist" };
+const db = require('../../db');
 
-	const isPassword = await bcrypt.compare(password, fac.password);
-	if(isPassword) {
-		const token = await jwt.sign({ _id: fac.id }, process.env.SECRET);
-		return {
-			...fac._doc,
-			password: null,
-			token
+
+class FacultyServices {
+
+	async login(email, password) {
+		const fac = await db.getFaculty(email);
+		if(!fac)
+			return { err: "email doesn't exist" };
+
+		const isPassword = await bcrypt.compare(password, fac.password);
+		if(isPassword) {
+			const token = await jwt.sign({ _id: fac.id }, process.env.SECRET);
+			return {
+				...fac._doc,
+				password: null,
+				token
+			}
+		} else {
+			return { err: "wrong password" }
 		}
-	} else {
-		return { err: "wrong password" }
 	}
+
+	async signup(email, password, name) {
+		const salt = await bcrypt.genSalt(10);
+		const hashPassword = await bcrypt.hash(password, salt);
+		const fac = await db.createFaculty(email, hashPassword, name);
+		return fac;	
+	}	
+
 }
 
-async function signup(email, password, name) {
-	const salt = await bcrypt.genSalt(10);
-	const hashPassword = await bcrypt.hash(password, salt);
-	const fac = await db.createFaculty(email, hashPassword, name);
-	return fac;	
-}
+Container.set("FacultyServices", new FacultyServices);
 
-module.exports = {
-	login, 
-	signup
-}
+module.exports = FacultyServices;

@@ -1,15 +1,17 @@
 const Container = require('typedi').Container;
-const facultyServices = require('../../services/facultyServices');
+
+const FacultyServices = require('../../services/facultyServices');
+const facultyServicesInstance = Container.get(FacultyServices);
 
 class FacultyController {
 
 	async signup(req, res, next) {
-		const fac = await facultyServices.signup(req.body.email, req.body.password, req.body.name);
+		const fac = await facultyServicesInstance.signup(req.body.email, req.body.password, req.body.name);
 		res.json(fac);
 	}
 
 	async login(req, res, next) {
-		const fac = await facultyServices.login(req.body.email, req.body.password);
+		const fac = await facultyServicesInstance.login(req.body.email, req.body.password);
 		res.json(fac);
 	}	
 
