@@ -8,12 +8,39 @@ async function init() {
 }
 
 async function disconnect() {
-	await client.close();
+	await mongoose.connection.close();
 	return;
 }
 
+async function getFaculty(email) {
+	return await Faculty.findOne({ email });
+}
+
+async function createFaculty(email, password, name) {
+	const fac = new Faculty({
+		email,
+		password,
+		name
+	});
+
+	try {
+		const savedFac = await fac.save();
+		return savedFac;
+	} catch(err) {
+		return err;
+	}
+}
+
+async function removeFaculty(email) {
+	const del = await Faculty.deleteOne({email});
+}
+
 module.exports = {
-	init
+	init,
+	disconnect,
+	getFaculty,
+	createFaculty,
+	removeFaculty
 }
 
 

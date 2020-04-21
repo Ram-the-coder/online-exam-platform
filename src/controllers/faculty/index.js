@@ -7,6 +7,4 @@ const deploy = require('./deploy');
 const evaluateAnswer = require('./evaluateAnswer');
 const getTest = require('./getTest');
 
-
-
 module.exports = {getDashboard, auth, createTest, deleteTest, editTest, deploy, evaluateAnswer, getTest};
