@@ -1,26 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const middlewares = require('../middlewares');
+const Container = require('typedi').Container;
 
-const facultyController = require('../../controllers/faculty');
+const FacultyController = require('../../controllers/faculty');
 const studentController = require('../../controllers/student');	
 // const rce = require('../../controllers/remoteCodeExecution');
 
+const facultyControllerInstance = Container.get(FacultyController);
 
 // Faculty Routes
 	//Auth Routes
-	router.post('/faculty/login', facultyController.auth.login);
-	router.post('/faculty/signup', facultyController.auth.signup);
+	router.post('/faculty/login', facultyControllerInstance.login);
+	router.post('/faculty/signup', facultyControllerInstance.signup);
 
 	//Test-related routes
-	router.get('/faculty/dashboard', middlewares.auth, facultyController.getDashboard); // Get all details of faculty including tests
-	router.get('/faculty/test', middlewares.auth, facultyController.getTest); // Get the details about a test
-	router.post('/faculty/test', middlewares.auth,facultyController.createTest); // Create a new test
-	router.patch('/faculty/test', middlewares.auth, facultyController.editTest); // Update a test 
-	router.delete('/faculty/test', middlewares.auth, facultyController.deleteTest); // Delete a test
-	router.get('/faculty/deployTest', middlewares.auth, facultyController.deploy.deployTest); // Deploy a test
-	router.get('/faculty/undeployTest', middlewares.auth, facultyController.deploy.undeployTest); // Undeploy a test
-	router.post('/faculty/evaluateAnswer', middlewares.auth, facultyController.evaluateAnswer); // Evaluate an answer sheet
+	router.get('/faculty/dashboard', middlewares.auth, facultyControllerInstance.getDashboard); // Get all details of faculty including tests
+	router.get('/faculty/test', middlewares.auth, facultyControllerInstance.getTest); // Get the details about a test
+	router.post('/faculty/test', middlewares.auth,facultyControllerInstance.createTest); // Create a new test
+	router.patch('/faculty/test', middlewares.auth, facultyControllerInstance.editTest); // Update a test 
+	router.delete('/faculty/test', middlewares.auth, facultyControllerInstance.deleteTest); // Delete a test
+	router.get('/faculty/deployTest', middlewares.auth, facultyControllerInstance.deployTest); // Deploy a test
+	router.get('/faculty/undeployTest', middlewares.auth, facultyControllerInstance.undeployTest); // Undeploy a test
+	router.post('/faculty/evaluateAnswer', middlewares.auth, facultyControllerInstance.evaluateAnswer); // Evaluate an answer sheet
 
 // RCE Routes
 // router.post('/rce/execute', rce.executeCode);
