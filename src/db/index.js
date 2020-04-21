@@ -2,6 +2,7 @@ const Container = require('typedi').Container;
 const mongoose = require('mongoose');
 const uri = process.env.MONGODB_URI;
 const Faculty = require('./facultySchema');
+const Test = require('./testSchema');
 
 class DB {
 
@@ -14,8 +15,14 @@ class DB {
 		return;
 	}
 
-	async getFaculty(email) {
-		return await Faculty.findOne({ email });
+	async getFacultyByEmail(email) {
+		const fac = await Faculty.findOne({ email });
+		return fac;
+	}
+
+	async getFacultyById(facId) {
+		const fac = await Faculty.findById(facId);
+		return fac;
 	}
 
 	async createFaculty(email, password, name) {
@@ -35,6 +42,37 @@ class DB {
 
 	async removeFaculty(email) {
 		const del = await Faculty.deleteOne({email});
+	}
+
+	async createTest(facultyId, questions, testName, timeLimit, totalMarks, requiredStudentDetails) {
+		const test = new Test({facultyId, questions, testName, timeLimit, totalMarks, requiredStudentDetails});
+		try {
+			const savedTest = await test.save();
+			return {test: savedTest};
+		} catch(err) {
+			return {err};
+		}
+	}
+
+	async addTest(facId, testId) {
+		let fac = await this.getFacultyById(facId);
+		fac.tests.push(testId);
+		await fac.save();
+		return fac;
+	}
+
+	async getTest(testId) {
+		let test = await Test.findById(testId);
+		return test;
+	}
+
+	async deleteTest(testId) {
+		await Test.deleteOne({_id: testId});
+	}
+
+	async deployTest(testId) {
+		const test = await Test.findOneAndUpdate({_id: testId}, {isDeployed: true});
+		return test;
 	}
 }
 

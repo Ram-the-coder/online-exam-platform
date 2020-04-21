@@ -22,8 +22,21 @@ class FacultyController {
 	  * @api_params totalMarks: Number
 	  * @api_params description: String
 	*/
-	createTest(req, res, next) {
+	async createTest(req, res, next) {
+		try {
+			const test = await facultyServicesInstance.createTest(
+				req.faculty._id, 
+				req.body.questions, 
+				req.body.testName,
+				req.body.timeLimit,
+				req.body.totalMarks,
+				req.body.requiredStudentDetails);	
+			res.json(test);
 
+		} catch(err) {
+			res.json({err});
+		}
+		
 	}
 
 	/** 
@@ -38,12 +51,18 @@ class FacultyController {
 	  * @api_params faculty(get this from auth middleware): Object  
 	  * @api_params id(test id): String
 	*/
-	deployTest(req, res, next) {
+	async deployTest(req, res, next) {
+		try {
+			const test = await facultyServicesInstance.deployTest(req.faculty, req.body.testId);	
+			res.json({test});
+		} catch(err) {
+			res.json({err});
+		}
 
 	}
 
 	undeployTest(req, res, next) {
-		
+				
 	}
 
 	/** 
@@ -70,8 +89,14 @@ class FacultyController {
 	/** 
 	  * @api_params faculty(get this from auth middleware): Object 
 	*/
-	getDashboard(req, res, next) {
-	
+	async getDashboard(req, res, next) {
+		try {
+			const faculty = await facultyServicesInstance.getDashboard(req.faculty);
+			res.json({faculty});	
+		} catch(err) {
+			res.json({err});
+		}
+
 	}
 
 	/** 

@@ -8,7 +8,7 @@ const db = Container.get(DB);
 class FacultyServices {
 
 	async login(email, password) {
-		const fac = await db.getFaculty(email);
+		const fac = await db.getFacultyByEmail(email);
 		if(!fac)
 			return { err: "email doesn't exist" };
 
@@ -31,6 +31,25 @@ class FacultyServices {
 		const fac = await db.createFaculty(email, hashPassword, name);
 		return fac;	
 	}	
+
+	async getDashboard(faculty) {
+		// console.log(faculty);
+		return {...faculty._doc, password: null};
+	}
+
+	async createTest(facId, questions, testName, timeLimit, totalMarks, reqStuDetails) {
+		const test = await db.createTest(facId, questions, testName, timeLimit, totalMarks, reqStuDetails);
+		await db.addTest(facId, test.test._id);
+		return test;
+	}
+
+	async deployTest(fac, testId) {
+		if(!fac.tests.includes(testId))
+			return {err: "No such test created by you"};
+
+		let test = await db.deployTest(testId);
+		return test;
+	}
 
 }
 

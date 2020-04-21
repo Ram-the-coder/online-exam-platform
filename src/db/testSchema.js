@@ -15,7 +15,6 @@ const testSchema = new mongoose.Schema({
 	},
 	isDeployed: {
 		type: Boolean,
-		required: true
 	},
 	timeLimit: {
 		type: Number,

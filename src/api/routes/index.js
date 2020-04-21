@@ -20,8 +20,8 @@ const facultyControllerInstance = Container.get(FacultyController);
 	router.post('/faculty/test', middlewares.auth,facultyControllerInstance.createTest); // Create a new test
 	router.patch('/faculty/test', middlewares.auth, facultyControllerInstance.editTest); // Update a test 
 	router.delete('/faculty/test', middlewares.auth, facultyControllerInstance.deleteTest); // Delete a test
-	router.get('/faculty/deployTest', middlewares.auth, facultyControllerInstance.deployTest); // Deploy a test
-	router.get('/faculty/undeployTest', middlewares.auth, facultyControllerInstance.undeployTest); // Undeploy a test
+	router.post('/faculty/deployTest', middlewares.auth, facultyControllerInstance.deployTest); // Deploy a test
+	router.post('/faculty/undeployTest', middlewares.auth, facultyControllerInstance.undeployTest); // Undeploy a test
 	router.post('/faculty/evaluateAnswer', middlewares.auth, facultyControllerInstance.evaluateAnswer); // Evaluate an answer sheet
 
 // RCE Routes
