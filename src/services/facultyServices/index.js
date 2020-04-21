@@ -2,8 +2,8 @@ const Container = require('typedi').Container;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-const db = require('../../db');
-
+const DB = require('../../db');
+const db = Container.get(DB);
 
 class FacultyServices {
 
@@ -34,6 +34,6 @@ class FacultyServices {
 
 }
 
-Container.set("FacultyServices", new FacultyServices);
+Container.set("FacultyServices", new FacultyServices());
 
 module.exports = FacultyServices;

@@ -1,8 +1,10 @@
+const Container = require('typedi').Container;
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const routes = require('./api/routes');
-const db = require('./db');
+const DB = require('./db');
+const db = Container.get(DB);
 
 const app = express();
 

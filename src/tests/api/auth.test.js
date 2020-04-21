@@ -3,7 +3,8 @@ const Container = require('typedi').Container;
 const FacultyServices = require('../../services/facultyServices');
 const facultyServicesInstance = Container.get(FacultyServices);
 const middlewares = require('../../api/middlewares');
-const db = require('../../db');
+const DB = require('../../db');
+const db = Container.get(DB);
 
 const email = "test@email.com";
 const password = "12345678";
