@@ -1,0 +1,34 @@
+.test {
+	border: 1px solid #C2C7D0;
+	border-radius: 7px;
+	margin: 10px 5px;
+	padding: 20px 10px 20px 20px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.test-name {
+	/*font-size: 1.2rem;*/
+	text-decoration: none;
+	font-weight: 500;
+}
+
+.test:hover {
+	cursor: pointer;
+	border: 1px solid black;
+}
+
+.access-code {
+	color: #606060;
+}
+
+.btn-deploy {
+	min-width: 100px;
+}
+
+.test > * {
+	margin: 5px 10px;
+}

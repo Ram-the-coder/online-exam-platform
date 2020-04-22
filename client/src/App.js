@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Home from './components/Home/Home';
+import Dashboard from './components/Dashboard/Dashboard';
+import Navbar from './components/Navbar/Navbar';
+import { authStateRefresh } from './actions/thunks';
 
 import './App.css';
 
@@ -8,38 +12,28 @@ class App extends Component {
 
 	constructor() {
 		super();
-		this.state = {
-			isLogin: true
-		}
+	}
+
+	componentDidMount() {
+		this.props.authStateRefresh();
 	}
 
 	render() {
 		return (
-			<div className="App">
-				<div className="header row">
-					Online Examination Platform
+			<BrowserRouter>
+				<div className='App'>
+					<Navbar />
+					<Switch>
+						<Route path='/dashboard' component = {Dashboard} />
+						<Route exact path = '/' component = {Home} />
+						<Redirect from='*' to='/' />
+					</Switch>
+					
 				</div>
-				<div className="my-container row">
-					<div className="studentSide col">
-							 
-					</div>
-					<div className="facultySide col">
-						<h2>For Teachers</h2>
-						<div className="authentication-form">
-							{this.state.isLogin ? <Login /> : <Register />}
-							{
-								this.state.isLogin
-									? <p>Don't have an account? <span className="sim-link" onClick = {() => this.setState({isLogin: false})}>Sign Up</span></p>		
-									: <p>Already have an account? <span className="sim-link" onClick = {() => this.setState({isLogin: true})}>Login</span></p>		
-							}
-							
-						</div>
-					</div>
-				</div>
-			</div>
+			</BrowserRouter>
 		);	
 	}
 	
 }
 
-export default App;
+export default connect(null, {authStateRefresh})(App);

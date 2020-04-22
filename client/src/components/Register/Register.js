@@ -24,7 +24,11 @@ export default class Register extends Component {
             email: this.state.email,
             password: this.state.password,
             name: this.state.name
-        }).then(res => console.log(res)).catch(err => console.log(err));
+        }).then(res => {
+            console.log(res);
+            if(!res.data.err)
+                this.props.setLoginState(true);
+        }).catch(err => alert(err));
 
         this.setState({
             email: '',
@@ -38,7 +42,7 @@ export default class Register extends Component {
     render() {
         return (
         	<>
-                <h3>Sign Up</h3>
+                <h3>Faculty Sign Up</h3>
                 <form className="my-form" onSubmit = {this.handleSubmit}>
                     <div className="form-group">
                         <input

@@ -1,23 +1,23 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import axios from 'axios';
+import {loginThunk} from '../../actions/thunks';
+import { connect } from 'react-redux';
 
-export default class Login extends Component {
+class Login extends Component {
 	constructor() {
         super();
         this.state = {
             email: '',
             password: '',
-            error: '',
+            error: ''
         }
     }
 
     handleSubmit = (e) => {
     	e.preventDefault();
 
-    	axios.post(`http://${process.env.REACT_APP_SERVER_URL}/api/faculty/login`, {
-    		email: this.state.email,
-    		password: this.state.password
-    	}).then(res => console.log(res)).catch(err => console.log(err));
+    	this.props.loginThunk(this.state.email, this.state.password);
 
     	this.setState({
     		email: '',
@@ -28,9 +28,13 @@ export default class Login extends Component {
     }
 
     render() {
+        
+        if(this.props.authStatus)
+            return (<Redirect to="/dashboard" />);
+
         return (
         	<>
-                <h3>Login</h3>
+                <h3>Faculty Login</h3>
                 <form className="my-form" onSubmit = {this.handleSubmit}>
                     <div className="form-group">
                         <input
@@ -59,3 +63,5 @@ export default class Login extends Component {
         )
     }
 }
+
+export default connect( state => ({authStatus: state.user.authStatus}), {loginThunk})(Login)
