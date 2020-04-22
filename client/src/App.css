@@ -1,0 +1,56 @@
+.App {
+	text-align: center;
+}
+
+.header {
+	height: 20vh;
+	background: #09af00;
+	font-weight: bold;
+	display: flex;
+	color: white;
+	align-items: center;
+	justify-content: center;
+	font-size: 3em;
+}
+
+.authentication-form {
+    width: 400px;
+    position: relative;
+    margin: 30px auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.studentSide {
+	/*border: 1px solid black;*/
+}
+
+.facultySide {
+	/*border: 1px solid black;*/
+}
+
+.sim-link {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.sim-link:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.my-form {
+	margin-bottom: 10px;
+}
+
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+
+.field-icon:hover {
+	cursor: pointer;
+}

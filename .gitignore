@@ -2,3 +2,4 @@
 server/nodemon.json
 server/.jest
 */debug.log
+*/.env

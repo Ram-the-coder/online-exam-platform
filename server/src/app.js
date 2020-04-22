@@ -1,6 +1,7 @@
 const Container = require('typedi').Container;
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const path = require('path');
 const routes = require('./api/routes');
 const DB = require('./db');
@@ -11,6 +12,9 @@ const app = express();
 /* Body parser */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+/* CORS */
+app.use(cors());
 
 /* Set public directory */
 app.use(express.static(path.join(__dirname, '../public')));
