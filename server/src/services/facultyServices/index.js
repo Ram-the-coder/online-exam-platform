@@ -38,6 +38,7 @@ class FacultyServices {
 			return test;
 		}));
 		faculty._doc.tests = tests;
+		// console.log(tests);
 		return {...faculty._doc, password: null};
 	}
 
@@ -53,6 +54,15 @@ class FacultyServices {
 
 		let test = await db.deployTest(testId);
 		return test;
+	}
+
+	async getTest(testId) {
+		try {
+			const test = await db.getTest(testId);
+			return {test};	
+		} catch(err) {
+			return {err};
+		}
 	}
 
 }

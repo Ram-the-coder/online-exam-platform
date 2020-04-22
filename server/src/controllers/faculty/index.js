@@ -103,8 +103,16 @@ class FacultyController {
 	  * @api_params faculty(get this from auth middleware): Object  
 	  * @api_params id(test id): String
 	*/
-	getTest(req, res, next) {
-
+	async getTest(req, res, next) {
+		try {
+			const test = await facultyServicesInstance.getTest(req.testId);
+			if(!test.err)
+				res.json(test);
+			else
+				res.json(test);
+		} catch(err) {
+			res.json({err});
+		}
 	}
 }
 

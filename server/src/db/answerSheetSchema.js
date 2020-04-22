@@ -15,11 +15,11 @@ const answerSchema = new mongoose.Schema({
 
 const answerSheetSchema = new mongoose.Schema({
 	testId: {
-		type: mongoose.Schema.Types.ObjectId(),
+		type: mongoose.ObjectId,
 		required: true
 	},
 	studentDetails: {
-		type: [mongoose.Schema.Types.Mixed],
+		type: [String],
 		required: true,
 	},
 	answers: {
@@ -35,4 +35,4 @@ const answerSheetSchema = new mongoose.Schema({
 	}
 })
 
-module.exports = mongoose.model('answerSheet', answerSheetSchema);
+module.exports = answerSheetSchema;

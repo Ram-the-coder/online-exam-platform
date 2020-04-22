@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const answerSheetSchema = require('./answerSheetSchema');
 
 const testSchema = new mongoose.Schema({
 	facultyId: {
@@ -27,7 +28,7 @@ const testSchema = new mongoose.Schema({
 		required: true
 	},
 	submittedAnswers: {
-		type: [mongoose.ObjectId],
+		type: [answerSheetSchema],
 	},
 })
 
