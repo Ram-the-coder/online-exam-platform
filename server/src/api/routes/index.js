@@ -4,10 +4,11 @@ const middlewares = require('../middlewares');
 const Container = require('typedi').Container;
 
 const FacultyController = require('../../controllers/faculty');
-const studentController = require('../../controllers/student');	
+const StudentController = require('../../controllers/student');	
 // const rce = require('../../controllers/remoteCodeExecution');
 
 const facultyControllerInstance = Container.get(FacultyController);
+const studentControllerInstance = Container.get(StudentController);
 
 // Faculty Routes
 	//Auth Routes
@@ -28,7 +29,7 @@ const facultyControllerInstance = Container.get(FacultyController);
 // router.post('/rce/execute', rce.executeCode);
 
 // Student routes
-router.get('/testzone/test', studentController.getTest); // Get the test if its is deployed
-router.post('/testzone/submit', studentController.submitTest); // Submit answers to the test
+router.get('/testzone/test', studentControllerInstance.getTest); // Get the test if its is deployed
+router.post('/testzone/submit', studentControllerInstance.submitTest); // Submit answers to the test
 
 module.exports = router;

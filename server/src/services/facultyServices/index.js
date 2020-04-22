@@ -33,7 +33,11 @@ class FacultyServices {
 	}	
 
 	async getDashboard(faculty) {
-		// console.log(faculty);
+		const tests = await Promise.all(faculty._doc.tests.map(async testid => {
+			const test = await db.getTest(testid);
+			return test;
+		}));
+		faculty._doc.tests = tests;
 		return {...faculty._doc, password: null};
 	}
 

@@ -63,6 +63,7 @@ class DB {
 
 	async getTest(testId) {
 		let test = await Test.findById(testId);
+		// console.log(test);
 		return test;
 	}
 
