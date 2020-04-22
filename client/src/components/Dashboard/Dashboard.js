@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
 import {getDashboardThunk} from '../../actions/thunks';
-import Test from './Test';
+import TestCard from './TestCard';
 
 import './Dashboard.css';
 
@@ -25,7 +25,7 @@ class Dashboard extends Component {
 
 		let tests = [];
 		if(this.props.faculty)
-			tests = this.props.faculty.tests.map((test, index) => <Test props={test} key={index} />);
+			tests = this.props.faculty.tests.map((test, index) => <TestCard props={test} key={index} />);
 
 		return (
 			<div className="row dashboard">

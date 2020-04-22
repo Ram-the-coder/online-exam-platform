@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import './Test.css'
+import './TestCard.css'
 
-export default function Test(props) {
+export default function TestCard(props) {
 	return (
 		<div className="test">
 			<div className="test-name">{props.props.testName}</div>
