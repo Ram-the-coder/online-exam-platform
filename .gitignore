@@ -1,4 +1,4 @@
-node_modules
-client/node_modules
-nodemon.json
-.jest
+*/node_modules
+server/nodemon.json
+server/.jest
+*/debug.log
