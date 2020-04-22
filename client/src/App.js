@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Home from './components/Home/Home';
 import Dashboard from './components/Dashboard/Dashboard';
 import Navbar from './components/Navbar/Navbar';
+import TestDetails from './components/Test/TestDetails';
 import { authStateRefresh } from './actions/thunks';
 
 import './App.css';
@@ -24,7 +25,8 @@ class App extends Component {
 				<div className='App'>
 					<Navbar />
 					<Switch>
-						<Route path='/dashboard' component = {Dashboard} />
+						<Route path='/dashboard/:testId' component = {TestDetails} />
+						<Route exact path='/dashboard' component = {Dashboard} />
 						<Route exact path = '/' component = {Home} />
 						<Redirect from='*' to='/' />
 					</Switch>
