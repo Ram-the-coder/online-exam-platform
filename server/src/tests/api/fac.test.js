@@ -72,24 +72,27 @@ test('Create Test', async done => {
 								sampleTest.requiredStudentDetails );
 
 		const retrievedTest = await db.getTest(createdTest.test._id);
-
-		await db.removeFaculty(email);
-		await db.deleteTest(createdTest.test._id);
 		
+		const ufac = await db.getFacultyById(req.faculty._id);
+
 		expect({
 			facultyId: retrievedTest.facultyId,
 			testName: retrievedTest.testName,
 			timeLimit: retrievedTest.timeLimit,
 			totalMarks: retrievedTest.totalMarks,
 			requiredStudentDetails: JSON.stringify(retrievedTest.requiredStudentDetails),
-			questions: JSON.stringify(retrievedTest.questions)
+			questions: JSON.stringify(retrievedTest.questions),
+			tests: JSON.stringify(ufac.tests)
 		}).toEqual({
 			facultyId: req.faculty._id,
 			...sampleTest,
 			questions: JSON.stringify(sampleTest.questions),
-			requiredStudentDetails: JSON.stringify(sampleTest.requiredStudentDetails)
+			requiredStudentDetails: JSON.stringify(sampleTest.requiredStudentDetails),
+			tests: JSON.stringify([retrievedTest._id])
 		});
 
+		await db.removeFaculty(email);
+		await db.deleteTest(createdTest.test._id);
 		await db.disconnect();
 		done();	
 

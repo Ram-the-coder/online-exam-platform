@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const uri = process.env.MONGODB_URI;
 const Faculty = require('./facultySchema');
 const Test = require('./testSchema');
+const AnswerSheet = require('./answerSheetSchema');
 
 class DB {
 
@@ -55,10 +56,14 @@ class DB {
 	}
 
 	async addTest(facId, testId) {
-		let fac = await this.getFacultyById(facId);
-		fac.tests.push(testId);
-		await fac.save();
-		return fac;
+		try {
+			let fac = await this.getFacultyById(facId);
+			fac.tests.push(testId);
+			await fac.save();
+			return fac;
+		} catch(err) {
+			return {err};
+		}
 	}
 
 	async getTest(testId) {
@@ -68,12 +73,46 @@ class DB {
 	}
 
 	async deleteTest(testId) {
-		await Test.deleteOne({_id: testId});
+		try {
+			// console.log(testId);
+			await Test.deleteOne({_id: testId});
+		} catch(err) {
+			console.error(err);
+		}
 	}
 
 	async deployTest(testId) {
 		const test = await Test.findOneAndUpdate({_id: testId}, {isDeployed: true});
 		return test;
+	}
+
+	async addAnswerSheet(submission) {
+		try {
+			let answerSheet = new AnswerSheet(submission);
+			answerSheet = await answerSheet.save();
+			const test = await this.getTest(submission.testId);
+			test.submittedAnswers.push(answerSheet._id);
+			return {answerSheet};
+		} catch(err) {
+			return {err};
+		}
+	}
+
+	async getAnswerSheet(_id) {
+		try {
+			const answerSheet = await AnswerSheet.findById(_id);
+			return {answerSheet};
+		} catch(err) {
+			return {err};
+		}
+	}
+
+	async deleteAnswerSheet(_id) {
+		try {
+			await AnswerSheet.deleteOne({_id});
+		} catch(err) {
+			console.error(err);
+		}
 	}
 }
 

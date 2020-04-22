@@ -35,4 +35,4 @@ const answerSheetSchema = new mongoose.Schema({
 	}
 })
 
-module.exports = answerSheetSchema;
+module.exports = mongoose.model('answerSheet', answerSheetSchema);
